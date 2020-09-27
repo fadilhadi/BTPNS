@@ -1,0 +1,5 @@
+---
+- hosts: dc_border
+  become: yes
+  roles:
+    - l3_service

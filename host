@@ -1,0 +1,67 @@
+[all:vars]
+fabric_mtu		= 9216
+host_mtu		= 9000
+
+[dc_switch:vars]
+as_number		= 64550
+snmp_comstring 	= 'public'
+ntp_server 		= '10.7.46.15'
+rr_list			= '10.7.57.5,10.7.57.6'
+client_list	 	= '10.7.57.7,10.7.57.8,10.7.57.9,10.7.57.10'
+vlan_csv		= 'VLAN_DC.csv'
+vlan_map_csv	= 'VLAN_MAP_DC.csv'
+
+[dc_switch:children]
+dc_spine
+dc_leaf
+dc_border
+dummy
+
+[dc_spine:vars]
+role			= 'SPINE'
+isl 			= 'swp1,swp3,swp5,swp7,swp2,swp4,swp6,swp8,swp9,swp10'
+
+[dc_spine:children]
+dc_spine1
+dc_spine2
+
+[dc_spine1]
+10.7.54.221 hostname=BS-JKT-NS-DC-0335-777 gateway=10.7.54.1 loopback=10.7.57.5 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!
+
+[dc_spine2]
+10.7.54.222 hostname=BS-JKT-NS-DC-0336-777 gateway=10.7.54.1 loopback=10.7.57.6 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!
+
+[dc_leaf:vars]
+role			= 'LEAF'
+isl 			= 'swp1,swp3,swp5,swp7,swp9,swp11,swp13,swp15'
+peerlink		= 'swp30,swp32'
+
+[dc_leaf:children]
+dc_leaf1
+dc_leaf2
+
+[dc_leaf1]
+10.7.54.201 hostname=BS-JKT-NS-DC-0339-777 gateway=10.7.54.1 loopback=10.7.57.9 backup-ip=10.7.54.202 anycast-ip=10.7.57.209 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!
+
+[dc_leaf2]
+10.7.54.202 hostname=BS-JKT-NS-DC-0340-777 gateway=10.7.54.1 loopback=10.7.57.10 backup-ip=10.7.54.201 anycast-ip=10.7.57.209 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!
+
+[dc_border:vars]
+role			= 'BORDER'
+isl 			= 'swp1,swp3'
+breakout		= 'swp2:4x:10G,swp4:4x:10G'
+dci_iface		= 'swp4s0,swp4s1'
+l2_external		= 'swp10'
+
+[dc_border:children]
+dc_border1
+dc_border2
+
+[dc_border1]
+10.7.54.203 hostname=BS-JKT-NS-DC-0337-777 gateway=10.7.54.1 loopback=10.7.57.7 backup-ip=10.7.54.204 anycast-ip=10.7.57.207 l3_external='swp12:10.7.172.32:30:Catalyst-A' ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!
+
+[dc_border2]
+10.7.54.204 hostname=BS-JKT-NS-DC-0338-777 gateway=10.7.54.1 loopback=10.7.57.8 backup-ip=10.7.54.203 anycast-ip=10.7.57.207 l3_external='swp12:10.7.172.36:30:Catalyst-B' ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!
+
+[dummy]
+10.0.20.11 hostname=BS-JKT-NS-DC-0338-777 gateway=10.7.54.1 loopback=1.1.1.1 ansible_ssh_user=cumulus ansible_ssh_pass=CumulusLinux! ansible_sudo_pass=CumulusLinux!

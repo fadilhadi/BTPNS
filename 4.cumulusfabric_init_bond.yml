@@ -1,0 +1,10 @@
+---
+- hosts: dc_leaf
+  become: yes
+  roles:
+    - initialize_mlag-bond
+- hosts: dc_border
+  become: yes
+  roles:
+    - initialize_mlag-bond
+    

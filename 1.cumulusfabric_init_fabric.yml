@@ -1,0 +1,16 @@
+---
+- hosts: dc_leaf
+  become: yes
+  roles:
+    - leaf_initialize
+    
+- hosts: dc_spine
+  become: yes
+  roles:
+    - spine_initialize
+    
+- hosts: dc_border
+  become: yes
+  roles:
+    - border_initialize
+    

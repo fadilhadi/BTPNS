@@ -1,0 +1,11 @@
+---    
+- hosts: dc_leaf
+  become: yes
+  roles:
+    - l2_service
+    
+- hosts: dc_border
+  become: yes
+  roles:
+    - l2_service
+    

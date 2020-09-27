@@ -1,0 +1,17 @@
+graph G {
+    "BS-JKT-NS-DC-0335-777":"swp1" -- "BS-JKT-NS-DC-0339-777":"swp1";
+	"BS-JKT-NS-DC-0335-777":"swp3" -- "BS-JKT-NS-DC-0339-777":"swp3";
+	"BS-JKT-NS-DC-0335-777":"swp5" -- "BS-JKT-NS-DC-0339-777":"swp5";
+	"BS-JKT-NS-DC-0335-777":"swp7" -- "BS-JKT-NS-DC-0339-777":"swp7";
+	"BS-JKT-NS-DC-0335-777":"swp2" -- "BS-JKT-NS-DC-0340-777":"swp1";
+	"BS-JKT-NS-DC-0335-777":"swp4" -- "BS-JKT-NS-DC-0340-777":"swp3";
+	"BS-JKT-NS-DC-0335-777":"swp6" -- "BS-JKT-NS-DC-0340-777":"swp5";
+	"BS-JKT-NS-DC-0335-777":"swp8" -- "BS-JKT-NS-DC-0340-777":"swp7";
+	"BS-JKT-NS-DC-0335-777":"swp9" -- "BS-JKT-NS-DC-0337-777":"swp1";
+	"BS-JKT-NS-DC-0335-777":"swp10" -- "BS-JKT-NS-DC-0338-777":"swp1";
+    "spine1":"swp2" -- "leaf2":"swp1";
+    "spine2":"swp1" -- "leaf1":"swp2";
+    "spine2":"swp2" -- "leaf2":"swp2";
+    "leaf1":"swp3" -- "leaf2":"swp3";
+    "leaf1":"swp4" -- "leaf2":"swp4";
+}
